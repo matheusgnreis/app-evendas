@@ -16,9 +16,15 @@
     "products": [],
     "brands": [],
     "categories": [],
-    "customers": [],
-    "orders": [],
-    "carts": [],
+    "customers": [
+      "GET"
+    ],
+    "orders": [
+      "GET"
+    ],
+    "carts": [
+      "GET"
+    ],
     "orders/fulfillments": [],
     "orders/payments_history": [],
     "products/quantity": [],
