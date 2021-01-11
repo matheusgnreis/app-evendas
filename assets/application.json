@@ -55,5 +55,5 @@
     }
   },
   "auth_callback_uri": "https://us-central1-ecom-evendas.cloudfunctions.net/app/ecom/auth-callback",
-  "version": "1.0.0"
+  "version": "1.0.1"
 }
