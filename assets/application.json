@@ -1,7 +1,7 @@
 {
-  "app_id": 9000,
-  "title": "My Awesome E-Com Plus App",
-  "slug": "my-awesome-ecom-plus-app",
+  "app_id": 109851,
+  "title": "E-Vendas",
+  "slug": "evendas",
   "type": "external",
   "state": "active",
   "authentication": true,
@@ -26,6 +26,28 @@
     "products/price": [],
     "products/variations/price": []
   },
-  "auth_callback_uri": "https://us-central1-ecom-app-boilerplate.cloudfunctions.net/app/ecom/auth-callback",
+  "admin_settings": {
+    "evendas_token": {
+      "schema": {
+        "type": "string",
+        "maxLength": 255,
+        "format": "uri",
+        "title": "Token do E-Vendas",
+        "description": "Token da sua conta disponível no painel do E-Vendas"
+      },
+      "hide": true
+    },
+    "cart_delay": {
+      "schema": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 600,
+        "title": "Tempo para carrinho abandonado",
+        "description": "Delay em minutos para enviar notificação de carrinho abandonado"
+      },
+      "hide": true
+    }
+  },
+  "auth_callback_uri": "https://us-central1-ecom-evendas.cloudfunctions.net/app/ecom/auth-callback",
   "version": "1.0.0"
 }
