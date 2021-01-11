@@ -7,8 +7,8 @@
 
 const app = {
   app_id: 109851,
-  title: 'My Awesome E-Com Plus App',
-  slug: 'my-awesome-app',
+  title: 'E-Vendas',
+  slug: 'evendas',
   type: 'external',
   state: 'active',
   authentication: true,
@@ -137,7 +137,6 @@ const app = {
      */
   }
 }
-
 /**
  * List of Procedures to be created on each store after app installation.
  * Ref.: https://developers.e-com.plus/docs/api/#/store/procedures/
@@ -145,20 +144,18 @@ const app = {
 
 const procedures = []
 
-/**
- * Uncomment and edit code above to configure `triggers` and receive respective `webhooks`:
-
 const { baseUri } = require('./__env')
 
 procedures.push({
   title: app.title,
 
   triggers: [
-    // Receive notifications when new order is created:
+    /* Receive notifications when new order is created:
     {
       resource: 'orders',
       action: 'create',
     },
+    */
 
     // Receive notifications when order financial/fulfillment status changes:
     {
@@ -169,8 +166,14 @@ procedures.push({
       resource: 'orders',
       field: 'fulfillment_status',
     },
+    
+    // Receive notifications when cart is created with customer:
+    {
+      resource: 'carts',
+      field: 'customers',
+    },
 
-    // Receive notifications when products/variations stock quantity changes:
+    /* Receive notifications when products/variations stock quantity changes:
     {
       resource: 'products',
       field: 'quantity',
@@ -181,12 +184,6 @@ procedures.push({
       field: 'quantity'
     },
 
-    // Receive notifications when cart is edited:
-    {
-      resource: 'carts',
-      action: 'change',
-    },
-
     // Receive notifications when customer is deleted:
     {
       resource: 'customers',
@@ -194,6 +191,7 @@ procedures.push({
     },
 
     // Feel free to create custom combinations with any Store API resource, subresource, action and field.
+    */
   ],
 
   webhooks: [
@@ -207,9 +205,6 @@ procedures.push({
     }
   ]
 })
-
- * You may also edit `routes/ecom/webhook.js` to treat notifications properly.
- */
 
 exports.app = app
 
