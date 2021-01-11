@@ -135,6 +135,29 @@ const app = {
      * You can also set any other valid resource/subresource combination.
      * Ref.: https://developers.e-com.plus/docs/api/#/store/
      */
+  },
+
+  admin_settings: {
+    evendas_token: {
+      schema: {
+        type: 'string',
+        maxLength: 255,
+        format: 'uri',
+        title: 'Token do E-Vendas',
+        description: 'Token da sua conta disponível no painel do E-Vendas'
+      },
+      hide: true
+    },
+    cart_delay: {
+      schema: {
+        type: 'integer',
+        minimum: 1,
+        maximum: 600,
+        title: 'Tempo para carrinho abandonado',
+        description: 'Delay em minutos para enviar notificação de carrinho abandonado'
+      },
+      hide: true
+    }
   }
 }
 /**
