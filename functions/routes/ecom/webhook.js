@@ -1,3 +1,5 @@
+const axios = require('axios')
+
 // read configured E-Com Plus app data
 const getAppData = require('./../../lib/store-api/get-app-data')
 
@@ -31,6 +33,50 @@ exports.post = ({ appSdk }, req, res) => {
       }
 
       /* DO YOUR CUSTOM STUFF HERE */
+      const { resource } = trigger
+      if ((resource === 'orders' || resource === 'carts') && trigger.action !== 'delete') {
+        const resourceId = trigger.resource_id || trigger.inserted_id
+        if (resourceId) {
+          const url = `http://servicos.e-vendas.net.br/api/ecomplus/{appData.evendas_token}`
+          console.log(`Trigger for Store #${storeId} ${resourceId} => ${url}`)
+          if (url) {
+            appSdk.apiRequest(storeId, `${resource}/${resourceId}.json`)
+              .then(async ({ response }) => {
+                let customer
+                if (resource === 'carts') {
+                  const cart = response.data
+                  if (cart.available && !cart.completed) {
+                    const abandonedCartDelay = (appData.cart_delay || 12) * 1000 * 60
+                    if (Date.now() - new Date(cart.created_at).getTime() >= abandonedCartDelay) {
+                      const { customers } = cart
+                      if (customers && customers[0]) {
+                        const { response } = await appSdk.apiRequest(storeId, `customers/${customers[0]}.json`)
+                        customer = response.data
+                      }
+                    } else {
+                      return res.sendStatus(501)
+                    }
+                  } else {
+                    return res.sendStatus(204)
+                  }
+                }
+                console.log(`> Sending ${resource} notification`)
+                return axios({
+                  method: 'post',
+                  url,
+                  data: {
+                    storeId,
+                    trigger,
+                    [resource.slice(0, -1)]: response.data,
+                    customer
+                  }
+                })
+              })
+              .then(({ status }) => console.log(`> ${status}`))
+              .catch(console.error)
+          }
+        }
+      }
 
       // all done
       res.send(ECHO_SUCCESS)
