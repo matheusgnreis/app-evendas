@@ -73,7 +73,19 @@ exports.post = ({ appSdk }, req, res) => {
                 })
               })
               .then(({ status }) => console.log(`> ${status}`))
-              .catch(console.error)
+              .catch(error => {
+                if (error.response && error.config) {
+                  const err = new Error(`POST to ${url} failed`)
+                  const { status, data } = error.response
+                  err.response = {
+                    status,
+                    data: JSON.stringify(data)
+                  }
+                  err.data = JSON.stringify(error.config.data)
+                  return console.error(err)
+                }
+                console.error(error)
+              })
           }
         }
       }
