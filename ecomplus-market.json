@@ -1,7 +1,7 @@
 {
   "app": {
-    "title": "",
-    "short_description": "",
-    "category": "tools"
+    "title": "E-Vendas",
+    "short_description": "Notificações automáticas via Whatsapp, SMS e E-mail para pedidos, boletos, carrinhos abandonados e marketing",
+    "category": "customer-service"
   }
 }
