@@ -75,7 +75,7 @@ exports.post = ({ appSdk }, req, res) => {
               .then(({ status }) => console.log(`> ${status}`))
               .catch(error => {
                 if (error.response && error.config) {
-                  const err = new Error(`POST to ${url} failed`)
+                  const err = new Error(`#${storeId} ${resourceId} POST to ${url} failed`)
                   const { status, data } = error.response
                   err.response = {
                     status,
@@ -86,12 +86,18 @@ exports.post = ({ appSdk }, req, res) => {
                 }
                 console.error(error)
               })
+              .finally(() => {
+                if (!res.headersSent) {
+                  return res.sendStatus(200)
+                }
+              })
           }
         }
       }
-
-      // all done
-      res.send(ECHO_SUCCESS)
+    
+      if (resource !== 'carts') {
+        res.sendStatus(201)
+      }
     })
 
     .catch(err => {
