@@ -37,7 +37,7 @@ exports.post = ({ appSdk }, req, res) => {
       if ((resource === 'orders' || resource === 'carts') && trigger.action !== 'delete') {
         const resourceId = trigger.resource_id || trigger.inserted_id
         if (resourceId && appData.evendas_token) {
-          const url = `http://servicos.e-vendas.net.br/api/ecomplus/${appData.evendas_token}`
+          const url = `https://api.e-vendas.net.br/api/padrao/ecomplus/${appData.evendas_token}`
           console.log(`Trigger for Store #${storeId} ${resourceId} => ${url}`)
           if (url) {
             appSdk.apiRequest(storeId, `${resource}/${resourceId}.json`)
