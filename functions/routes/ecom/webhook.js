@@ -61,15 +61,19 @@ exports.post = ({ appSdk }, req, res) => {
                   }
                 }
                 console.log(`> Sending ${resource} notification`)
+                const data = {
+                  storeId,
+                  trigger,
+                  [resource.slice(0, -1)]: response.data,
+                  customer
+                }
+                if (storeId === 1445) {
+                  console.log(JSON.stringify(data))
+                }
                 return axios({
                   method: 'post',
                   url,
-                  data: {
-                    storeId,
-                    trigger,
-                    [resource.slice(0, -1)]: response.data,
-                    customer
-                  }
+                  data
                 })
               })
               .then(({ status, data }) => console.log(`> ${status} and ${data}`))
