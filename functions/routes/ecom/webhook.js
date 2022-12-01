@@ -67,7 +67,9 @@ exports.post = ({ appSdk }, req, res) => {
                   [resource.slice(0, -1)]: response.data,
                   customer
                 }
-                console.log('Data post: ', data)
+                if (storeId === 1445) {
+                  console.log(JSON.stringify(data))
+                }
                 return axios({
                   method: 'post',
                   url,
