@@ -72,7 +72,7 @@ exports.post = ({ appSdk }, req, res) => {
                   }
                 })
               })
-              .then(({ status }) => console.log(`> ${status}`))
+              .then(({ status, data }) => console.log(`> ${status} and ${data}`))
               .catch(error => {
                 if (error.response && error.config) {
                   const err = new Error(`#${storeId} ${resourceId} POST to ${url} failed`)
