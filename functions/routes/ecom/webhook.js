@@ -67,7 +67,7 @@ exports.post = ({ appSdk }, req, res) => {
                   [resource.slice(0, -1)]: response.data,
                   customer
                 }
-                if (storeId === 1445) {
+                if (resource === 'carts') {
                   console.log(JSON.stringify(data))
                 }
                 return axios({
@@ -76,7 +76,7 @@ exports.post = ({ appSdk }, req, res) => {
                   data
                 })
               })
-              .then(({ status, data }) => console.log(`> ${status} and ${data}`))
+              .then(({ status, data }) => console.log(`> ${status}`, JSON.stringify(data)))
               .catch(error => {
                 if (error.response && error.config) {
                   const err = new Error(`#${storeId} ${resourceId} POST to ${url} failed`)
