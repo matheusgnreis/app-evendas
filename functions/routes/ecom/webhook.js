@@ -68,7 +68,6 @@ exports.post = ({ appSdk }, req, res) => {
                   customer
                 }
                 if (storeId === 1445) {
-                  console.log('Post data')
                   console.log(JSON.stringify(data))
                 }
                 return axios({
