@@ -46,7 +46,7 @@ exports.post = ({ appSdk }, req, res) => {
                 if (resource === 'carts') {
                   const cart = response.data
                   if (cart.available && !cart.completed) {
-                    const abandonedCartDelay = (appData.cart_delay || 12) * 1000 * 60
+                    const abandonedCartDelay = (appData.cart_delay || 0) * 1000 * 60
                     if (Date.now() - new Date(cart.created_at).getTime() >= abandonedCartDelay) {
                       const { customers } = cart
                       if (customers && customers[0]) {
