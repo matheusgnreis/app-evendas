@@ -59,6 +59,9 @@ exports.post = ({ appSdk }, req, res) => {
                   } else {
                     return res.sendStatus(204)
                   }
+                } else if (resource === 'orders') {
+                  const order = response.data
+                  customer = order.buyers && order.buyers[0]
                 }
                 console.log(`> Sending ${resource} notification`)
                 const data = {
