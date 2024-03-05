@@ -55,7 +55,8 @@ exports.post = ({ appSdk }, req, res) => {
                         customer = response.data
                       }
                     } else {
-                      const documentRef = firestore().doc(`cart/${storeId}`)
+                      const documentRef = firestore().doc(`cart_to_add/${cart._id}`)
+                      const msDate = new Date().getTime() + abandonedCartDelay
                       await documentRef.set({
                         data: {
                           storeId,
@@ -63,7 +64,9 @@ exports.post = ({ appSdk }, req, res) => {
                           [resource.slice(0, -1)]: cart,
                           customer
                         },
-                        updatedAt: firestore.Timestamp.fromDate(new Date())
+                        url,
+                        storeId,
+                        sendAt: firestore.Timestamp.fromDate(new Date(msDate))
                       })
                       return res.send({
                         status: 400,
