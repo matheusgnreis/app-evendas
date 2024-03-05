@@ -140,3 +140,11 @@ exports.updateTokens = functions.pubsub.schedule(cron).onRun(() => {
   })
 })
 console.log(`-- Sheduled update E-Com Plus tokens '${cron}'`)
+
+const addCarts = require('./lib/cron-add-carts')
+exports.addPoints = functions.runWith({ timeoutSeconds: 360 })
+  .pubsub.schedule('*/10 * * * *').onRun(() => {
+    return prepareAppSdk().then(appSdk => {
+      addCarts({ appSdk })
+    })
+})
