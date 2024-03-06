@@ -1,4 +1,4 @@
-const logger = require('firebase-functions/logger')
+const { logger } = require('firebase-functions')
 const axios = require('axios')
 const { firestore } = require('firebase-admin')
 
